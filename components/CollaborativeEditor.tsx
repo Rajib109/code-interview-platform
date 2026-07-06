@@ -15,9 +15,10 @@ const getRandomColor = () => '#' + Math.floor(Math.random() * 16777215).toString
 
 interface CollaborativeEditorProps {
   roomId: string;
+  userEmail: string;
 }
 
-export default function CollaborativeEditor({ roomId }: CollaborativeEditorProps) {
+export default function CollaborativeEditor({ roomId, userEmail }: CollaborativeEditorProps) {
   const editorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
   const ydocRef = useRef<Y.Doc | null>(null);
   const channelRef = useRef<RealtimeChannel | null>(null);
@@ -41,10 +42,12 @@ export default function CollaborativeEditor({ roomId }: CollaborativeEditorProps
 
     // --- 1. AWARENESS (CURSORS) SETUP ---
     const awareness = new awarenessProtocol.Awareness(ydoc);
+
+    const displayName = userEmail.split('@')[0];
     
     // Set the local user's cursor metadata
     awareness.setLocalStateField('user', {
-      name: `User ${Math.floor(Math.random() * 1000)}`, // We can wire this to Auth later
+      name: displayName,
       color: getRandomColor()
     });
 
