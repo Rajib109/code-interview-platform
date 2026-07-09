@@ -1,4 +1,3 @@
-// components/CollaborativeEditor.tsx
 'use client';
 
 import Editor from '@monaco-editor/react';

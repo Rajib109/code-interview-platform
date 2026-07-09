@@ -39,3 +39,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# --- PYTHON & BACKEND ---
+# Ignore the virtual environment (where pip installs packages)
+.venv/
+execution-engine/.venv/
+
+# Ignore Python compiled cache files
+__pycache__/
+*.py[cod]
+*$py.class
