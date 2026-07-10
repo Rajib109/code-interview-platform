@@ -174,7 +174,7 @@ export default function CollaborativeEditor({ roomId, userEmail }: Collaborative
   return (
     <div className="flex flex-col h-full w-full gap-2 overflow-hidden">
       {/* Action Bar */}
-      <div className="flex-shrink-0 flex justify-between items-center bg-slate-900 p-2 rounded-md border border-slate-700">
+      <div className="shrink-0 flex justify-between items-center bg-slate-900 p-2 rounded-md border border-slate-700">
         <span className="text-sm text-slate-400 ml-2 font-mono">main.cpp</span>
         <button
           onClick={handleRunCode}
@@ -201,7 +201,7 @@ export default function CollaborativeEditor({ roomId, userEmail }: Collaborative
       </div>
 
       {/* Bottom Panel: Input + Output side-by-side — flex-shrink-0 so it never gets pushed off-screen */}
-      <div className="flex-shrink-0 flex gap-2" style={{ height: '180px' }}>
+      <div className="shrink-0 flex gap-2" style={{ height: '180px' }}>
         {/* Custom Input */}
         <div className="flex-1 bg-black rounded-md border border-slate-800 flex flex-col overflow-hidden">
           <div className="bg-slate-900 px-4 py-1.5 border-b border-slate-800 text-xs font-semibold text-slate-400 uppercase">
