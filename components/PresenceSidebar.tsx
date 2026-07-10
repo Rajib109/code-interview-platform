@@ -55,7 +55,7 @@ export default function PresenceSidebar({ roomId, userEmail }: PresenceSidebarPr
   }, [roomId, userEmail, supabase]);
 
   return (
-    <div className="w-64 bg-slate-900 border-r border-slate-800 flex flex-col h-full">
+    <div className="w-full bg-slate-900 border-r border-slate-800 flex flex-col h-full">
       <div className="p-4 border-b border-slate-800">
         <h2 className="text-sm font-semibold text-slate-200 uppercase tracking-wider">
           In Room ({onlineUsers.length})

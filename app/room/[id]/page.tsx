@@ -3,6 +3,7 @@ import { createClient } from '@/utils/supabase/server'
 import { redirect } from 'next/navigation'
 import CollaborativeEditor from '@/components/CollaborativeEditor'
 import PresenceSidebar from '@/components/PresenceSidebar'
+import { Group, Panel, Separator } from 'react-resizable-panels'
 
 export default async function RoomPage({
   params,
@@ -47,11 +48,24 @@ export default async function RoomPage({
       
       {/* 3. Render Sidebar and Editor side-by-side */}
       <main className="flex-1 flex overflow-hidden">
-        <PresenceSidebar roomId={id} userEmail={user.email} />
-        
-        <div className="flex-1 min-h-0 flex flex-col p-4 bg-[#1e1e1e]">
-          <CollaborativeEditor roomId={id} userEmail={user.email} />
-        </div>
+        <Group orientation="horizontal" id="main-layout" className="flex-1 w-full h-full">
+          {/* SIDEBAR PANEL */}
+          <Panel id="sidebar-panel" defaultSize={20} collapsible={true} minSize={10} maxSize={200}>
+            <PresenceSidebar roomId={id} userEmail={user.email} />
+          </Panel>
+          
+          {/* DRAG HANDLE */}
+          <Separator className="w-1.5 bg-slate-800 hover:bg-blue-600 active:bg-blue-500 transition-colors cursor-col-resize flex flex-col justify-center items-center">
+            <div className="h-4 w-0.5 bg-slate-600 rounded-full"></div>
+          </Separator>
+
+          {/* EDITOR PANEL */}
+          <Panel id="main-editor-panel" minSize={30}>
+            <div className="flex-1 min-h-0 flex flex-col p-4 bg-[#1e1e1e] h-full w-full">
+              <CollaborativeEditor roomId={id} userEmail={user.email} isHost={false} />
+            </div>
+          </Panel>
+        </Group>
       </main>
     </div>
   )

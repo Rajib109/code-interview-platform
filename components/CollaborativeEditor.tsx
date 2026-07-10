@@ -268,10 +268,10 @@ export default function CollaborativeEditor({ roomId, userEmail, isHost }: Colla
 
   return (
     <div className="flex-1 h-full w-full overflow-hidden bg-black text-slate-300 flex flex-col">
-      <Group orientation="horizontal" className="flex-1 w-full h-full">
+      <Group orientation="horizontal" id="editor-group" className="flex-1 w-full h-full">
         
         {/* LEFT PANEL: Problem Description */}
-        <Panel defaultSize={30} minSize={15}>
+        <Panel id="problem-panel" defaultSize={30} minSize={15}>
           <div className="h-full flex flex-col border-r border-slate-800 bg-slate-950">
             {/* Header */}
             <div className="shrink-0 bg-slate-900 px-4 py-3 border-b border-slate-800 flex justify-between items-center">
@@ -306,7 +306,7 @@ export default function CollaborativeEditor({ roomId, userEmail, isHost }: Colla
         </Separator>
 
         {/* RIGHT PANEL: Editor & Terminal */}
-        <Panel defaultSize={70}>
+        <Panel id="editor-panel" defaultSize={70}>
           <div className="flex flex-col h-full w-full gap-2 overflow-hidden p-2">
             
             {/* Action Bar */}
