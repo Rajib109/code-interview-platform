@@ -1,9 +1,10 @@
 // app/room/[id]/page.tsx
 import { createClient } from '@/utils/supabase/server'
 import { redirect } from 'next/navigation'
-import CollaborativeEditor from '@/components/CollaborativeEditor'
-import PresenceSidebar from '@/components/PresenceSidebar'
-import { Group, Panel, Separator } from 'react-resizable-panels'
+import CollaborativeEditor from '@/components/editor/CollaborativeEditor'
+import PresenceSidebar from '@/components/sidebar/PresenceSidebar'
+import GripHandle from '@/components/ui/GripHandle'
+import { Group, Panel } from 'react-resizable-panels'
 
 export default async function RoomPage({
   params,
@@ -55,9 +56,7 @@ export default async function RoomPage({
           </Panel>
           
           {/* DRAG HANDLE */}
-          <Separator className="w-1.5 bg-slate-800 hover:bg-blue-600 active:bg-blue-500 transition-colors cursor-col-resize flex flex-col justify-center items-center">
-            <div className="h-4 w-0.5 bg-slate-600 rounded-full"></div>
-          </Separator>
+          <GripHandle direction="horizontal" />
 
           {/* EDITOR PANEL */}
           <Panel id="main-editor-panel" minSize={30}>
