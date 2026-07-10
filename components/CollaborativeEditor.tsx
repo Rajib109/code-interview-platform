@@ -135,10 +135,14 @@ export default function CollaborativeEditor({ roomId, userEmail }: Collaborative
     setOutput('Compiling and running...');
 
     try {
+      const payload = stdinInput.trim()
+        ? { code, stdin: stdinInput }
+        : { code, problem_id: 'two-sum' };
+
       const response = await fetch('http://localhost:8000/execute', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code, stdin: stdinInput }),
+        body: JSON.stringify(payload),
       });
 
       const data = await response.json();
