@@ -49,7 +49,7 @@ export default async function RoomPage({
       <main className="flex-1 flex overflow-hidden">
         <PresenceSidebar roomId={id} userEmail={user.email} />
         
-        <div className="flex-1 p-4 bg-[#1e1e1e]">
+        <div className="flex-1 min-h-0 flex flex-col p-4 bg-[#1e1e1e]">
           <CollaborativeEditor roomId={id} userEmail={user.email} />
         </div>
       </main>

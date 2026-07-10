@@ -168,9 +168,9 @@ export default function CollaborativeEditor({ roomId, userEmail }: Collaborative
   };
 
   return (
-    <div className="flex flex-col h-full w-full gap-4">
+    <div className="flex flex-col h-full w-full gap-2 overflow-hidden">
       {/* Action Bar */}
-      <div className="flex justify-between items-center bg-slate-900 p-2 rounded-md border border-slate-700">
+      <div className="flex-shrink-0 flex justify-between items-center bg-slate-900 p-2 rounded-md border border-slate-700">
         <span className="text-sm text-slate-400 ml-2 font-mono">main.cpp</span>
         <button
           onClick={handleRunCode}
@@ -181,8 +181,8 @@ export default function CollaborativeEditor({ roomId, userEmail }: Collaborative
         </button>
       </div>
 
-      {/* Editor Space */}
-      <div className="flex-1 rounded-md overflow-hidden border border-slate-800">
+      {/* Editor Space — min-h-0 is critical for flex children to actually shrink */}
+      <div className="flex-1 min-h-0 rounded-md overflow-hidden border border-slate-800">
         <Editor
           height="100%"
           defaultLanguage="cpp"
@@ -192,32 +192,32 @@ export default function CollaborativeEditor({ roomId, userEmail }: Collaborative
             padding: { top: 16 },
             fontSize: 14,
           }}
-          onMount={handleEditorDidMount} // Keep your existing function here
+          onMount={handleEditorDidMount}
         />
       </div>
 
-      {/* Bottom Panel: Input + Output side-by-side */}
-      <div className="flex gap-4" style={{ height: '220px' }}>
+      {/* Bottom Panel: Input + Output side-by-side — flex-shrink-0 so it never gets pushed off-screen */}
+      <div className="flex-shrink-0 flex gap-2" style={{ height: '180px' }}>
         {/* Custom Input */}
-        <div className="flex-1 bg-black rounded-md border border-slate-800 flex flex-col">
-          <div className="bg-slate-900 px-4 py-2 border-b border-slate-800 text-xs font-semibold text-slate-400 uppercase">
+        <div className="flex-1 bg-black rounded-md border border-slate-800 flex flex-col overflow-hidden">
+          <div className="bg-slate-900 px-4 py-1.5 border-b border-slate-800 text-xs font-semibold text-slate-400 uppercase">
             Custom Input (stdin)
           </div>
           <textarea
             value={stdinInput}
             onChange={(e) => setStdinInput(e.target.value)}
             placeholder={'Enter input here, e.g.:\n4\n2 7 11 15\n9'}
-            className="flex-1 w-full bg-transparent p-4 font-mono text-sm text-slate-300 resize-none outline-none placeholder-slate-600"
+            className="flex-1 w-full bg-transparent p-3 font-mono text-sm text-slate-300 resize-none outline-none placeholder-slate-600"
             spellCheck={false}
           />
         </div>
 
         {/* Output Console */}
-        <div className="flex-1 bg-black rounded-md border border-slate-800 flex flex-col">
-          <div className="bg-slate-900 px-4 py-2 border-b border-slate-800 text-xs font-semibold text-slate-400 uppercase">
+        <div className="flex-1 bg-black rounded-md border border-slate-800 flex flex-col overflow-hidden">
+          <div className="bg-slate-900 px-4 py-1.5 border-b border-slate-800 text-xs font-semibold text-slate-400 uppercase">
             Terminal Output
           </div>
-          <div className="flex-1 p-4 overflow-y-auto font-mono text-sm text-slate-300 whitespace-pre-wrap">
+          <div className="flex-1 p-3 overflow-y-auto font-mono text-sm text-slate-300 whitespace-pre-wrap">
             {output || 'Click "Run Code" to see output here.'}
           </div>
         </div>

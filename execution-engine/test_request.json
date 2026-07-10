@@ -1,0 +1,4 @@
+{
+  "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    int arr[n];\n    for(int i=0; i<n; i++) cin >> arr[i];\n    int target;\n    cin >> target;\n    \n    for(int i=0; i<n; i++) {\n        for(int j=i+1; j<n; j++) {\n            if(arr[i] + arr[j] == target) {\n                cout << i << \" \" << j << endl;\n                return 0;\n            }\n        }\n    }\n    return 0;\n}",
+  "stdin": "4\n2 7 11 15\n9"
+}
