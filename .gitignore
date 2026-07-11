@@ -24,6 +24,10 @@
 .DS_Store
 *.pem
 project_report.md
+project_guide.md
+AI_CONTEXT.md
+AGENTS.md
+CLAUDE.md
 
 # debug
 npm-debug.log*
