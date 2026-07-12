@@ -53,6 +53,7 @@ export default function CollaborativeEditor({
   const [isExecuting, setIsExecuting] = useState(false);
   const [stdinInput, setStdinInput] = useState<string>('');
   const [isAiOpen, setIsAiOpen] = useState(false);
+  const [currentCode, setCurrentCode] = useState('');
 
   // --- Handlers ---
 
@@ -60,6 +61,7 @@ export default function CollaborativeEditor({
     if (!editorRef.current) return;
 
     const code = editorRef.current.getValue();
+    setCurrentCode(code);
     setIsExecuting(true);
     setOutput('Compiling and running...');
 
@@ -75,7 +77,14 @@ export default function CollaborativeEditor({
 
   // Get the current problem's description for the AI panel
   const currentProblem = PROBLEMS[activeProblemId];
-  const currentCode = editorRef.current?.getValue() ?? '';
+
+  const handleEditorMount = (editorInstance: Parameters<typeof handleEditorDidMount>[0]) => {
+    handleEditorDidMount(editorInstance);
+    setCurrentCode(editorInstance.getValue());
+    editorInstance.onDidChangeModelContent(() => {
+      setCurrentCode(editorInstance.getValue());
+    });
+  };
 
   return (
     <div className="flex-1 h-full w-full overflow-hidden bg-black text-slate-300 flex">
@@ -102,7 +111,7 @@ export default function CollaborativeEditor({
                 isAiOpen={isAiOpen}
                 onRunCode={handleRunCode}
                 onToggleAi={() => setIsAiOpen((prev) => !prev)}
-                onEditorMount={handleEditorDidMount}
+                onEditorMount={handleEditorMount}
               />
               <TerminalPanel
                 stdinInput={stdinInput}
