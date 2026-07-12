@@ -5,7 +5,11 @@ from fastapi import APIRouter
 
 from data.problems import PROBLEMS_DB
 from models.execution import CodeExecutionRequest
-from services.docker_runner import execute_freeplay, execute_with_tests, is_docker_connected
+from services.docker_runner import (
+    execute_freeplay,
+    execute_with_tests,
+    is_docker_connected,
+)
 
 router = APIRouter(tags=["Execution"])
 
