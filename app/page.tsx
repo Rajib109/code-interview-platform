@@ -98,7 +98,7 @@ export default function LandingPage() {
             <p><span className="text-pink-400">using namespace</span> <span className="text-blue-300">std</span>;</p>
             <br />
             <p><span className="text-blue-400">vector</span>&lt;<span className="text-blue-400">int</span>&gt; <span className="text-yellow-200">twoSum</span>(<span className="text-blue-400">vector</span>&lt;<span className="text-blue-400">int</span>&gt;&amp; nums, <span className="text-blue-400">int</span> target) {"{"}</p>
-            <p className="pl-6 mt-2"><span className="text-slate-500">/* Optimized approach using a hash map */</span></p>
+            <p className="pl-6 mt-2"><span className="text-slate-500">{'/* Optimized approach using a hash map */'}</span></p>
             <p className="pl-6 mt-2 flex items-center h-6"><span className="w-2.5 h-5 bg-primary animate-pulse inline-block shadow-[0_0_8px_rgba(var(--primary),0.8)]"></span></p>
             <p>{"}"}</p>
           </div>
