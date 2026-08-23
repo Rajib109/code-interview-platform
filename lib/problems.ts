@@ -9,22 +9,31 @@ export interface Problem {
   id: string;
   title: string;
   description: string;
-  starterCode: string;
+  starterCode: string; // Map from DB's starter_code
+  testCases?: any[];   // DB test_cases
 }
 
-export const PROBLEMS: Record<string, Problem> = {
-  'two-sum': {
-    id: 'two-sum',
-    title: '1. Two Sum',
-    description:
-      'Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.',
-    starterCode: `#include <iostream>\n#include <vector>\n\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> twoSum(vector<int>& nums, int target) {\n        // Write your code here\n        \n    }\n};\n`,
-  },
-  'reverse-linked-list': {
-    id: 'reverse-linked-list',
-    title: '2. Reverse Linked List',
-    description:
-      'Given the head of a singly linked list, reverse the list, and return the reversed list.',
-    starterCode: `#include <iostream>\n\nusing namespace std;\n\nstruct ListNode {\n    int val;\n    ListNode *next;\n    ListNode(int x) : val(x), next(NULL) {}\n};\n\nclass Solution {\npublic:\n    ListNode* reverseList(ListNode* head) {\n        // Write your code here\n        \n    }\n};\n`,
-  },
-};
+import { createClient } from '@/utils/supabase/server';
+
+export async function getProblems(): Promise<Record<string, Problem>> {
+  const supabase = await createClient();
+  const { data, error } = await supabase.from('problems').select('*');
+  
+  if (error || !data) {
+    console.error('Error fetching problems:', error);
+    return {};
+  }
+  
+  const problemsMap: Record<string, Problem> = {};
+  for (const row of data) {
+    problemsMap[row.id] = {
+      id: row.id,
+      title: row.title,
+      description: row.description,
+      starterCode: row.starter_code,
+      testCases: row.test_cases,
+    };
+  }
+  
+  return problemsMap;
+}

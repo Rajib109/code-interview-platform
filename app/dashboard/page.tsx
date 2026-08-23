@@ -25,6 +25,9 @@ export default async function DashboardPage() {
           <span>Dashboard</span>
         </Link>
         <div className="flex items-center gap-4">
+          <Link href="/dashboard/admin">
+            <Button variant="outline" size="sm" className="border-white/20 hover:bg-white/10">Admin Panel</Button>
+          </Link>
           <span className="text-sm text-muted-foreground">{user.email}</span>
           <div className="h-8 w-8 rounded-full bg-gradient-to-tr from-primary to-purple-500 flex items-center justify-center font-bold text-white shadow-lg">
             {user.email?.charAt(0).toUpperCase()}

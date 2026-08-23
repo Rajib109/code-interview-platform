@@ -11,7 +11,7 @@
 import { useState } from 'react';
 import { Panel, Group } from 'react-resizable-panels';
 
-import { PROBLEMS } from '@/lib/problems';
+import { type Problem } from '@/lib/problems';
 import { useYjsSync } from '@/lib/hooks/useYjsSync';
 import { runCode, formatExecutionOutput } from '@/lib/api/execution';
 
@@ -29,6 +29,7 @@ interface CollaborativeEditorProps {
   roomId: string;
   userEmail: string;
   isHost: boolean;
+  problems: Record<string, Problem>;
 }
 
 // ---------------------------------------------------------------------------
@@ -39,6 +40,7 @@ export default function CollaborativeEditor({
   roomId,
   userEmail,
   isHost,
+  problems,
 }: CollaborativeEditorProps) {
   // --- Yjs / Supabase sync ---
   const {
@@ -74,7 +76,7 @@ export default function CollaborativeEditor({
   };
 
   // Get the current problem's description for the AI panel
-  const currentProblem = PROBLEMS[activeProblemId];
+  const currentProblem = problems[activeProblemId];
   const currentCode = editorRef.current?.getValue() ?? '';
 
   return (
@@ -87,6 +89,7 @@ export default function CollaborativeEditor({
             activeProblemId={activeProblemId}
             isHost={isHost}
             onProblemChange={handleProblemChange}
+            problems={problems}
           />
         </Panel>
 

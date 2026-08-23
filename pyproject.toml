@@ -4,6 +4,7 @@ python_interpreter = "execution-engine/.venv/Scripts/python.exe"
 
 # Only check actual Python source files inside execution-engine
 source = ["execution-engine"]
+extraPaths = ["execution-engine"]
 
 # Exclude non-Python content that Pyrefly tries to lint
 exclude = [

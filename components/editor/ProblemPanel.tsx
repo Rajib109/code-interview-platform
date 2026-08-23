@@ -7,24 +7,26 @@
 
 'use client';
 
-import { PROBLEMS, type Problem } from '@/lib/problems';
+import { type Problem } from '@/lib/problems';
 
 interface ProblemPanelProps {
   activeProblemId: string;
   isHost: boolean;
   onProblemChange: (problemId: string, starterCode: string) => void;
+  problems: Record<string, Problem>;
 }
 
 export default function ProblemPanel({
   activeProblemId,
   isHost,
   onProblemChange,
+  problems,
 }: ProblemPanelProps) {
-  const problem: Problem | undefined = PROBLEMS[activeProblemId];
+  const problem: Problem | undefined = problems[activeProblemId];
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newId = e.target.value;
-    const selected = PROBLEMS[newId];
+    const selected = problems[newId];
     if (selected) {
       onProblemChange(newId, selected.starterCode);
     }
@@ -45,7 +47,7 @@ export default function ProblemPanel({
             onChange={handleChange}
             className="bg-slate-800 text-slate-200 border border-slate-600 rounded px-2 py-1 text-xs font-medium outline-none focus:border-blue-500"
           >
-            {Object.values(PROBLEMS).map((p) => (
+            {Object.values(problems).map((p) => (
               <option key={p.id} value={p.id}>
                 {p.title}
               </option>

@@ -8,6 +8,7 @@ import { Group, Panel } from 'react-resizable-panels'
 import { Terminal, LogOut, ChevronRight, Code2 } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import { getProblems } from '@/lib/problems'
 
 export default async function RoomPage({
   params,
@@ -16,6 +17,9 @@ export default async function RoomPage({
 }) {
   const { id } = await params
   const supabase = await createClient()
+
+  // Fetch problems from Supabase
+  const problems = await getProblems()
 
   // 1. Get the authenticated user
   const { data: { user } } = await supabase.auth.getUser()
@@ -85,7 +89,7 @@ export default async function RoomPage({
           {/* EDITOR PANEL */}
           <Panel id="main-editor-panel" minSize={30}>
             <div className="flex-1 min-h-0 flex flex-col bg-[#0d1117] h-full w-full">
-              <CollaborativeEditor roomId={id} userEmail={user.email} isHost={false} />
+              <CollaborativeEditor roomId={id} userEmail={user.email} isHost={false} problems={problems} />
             </div>
           </Panel>
         </Group>
