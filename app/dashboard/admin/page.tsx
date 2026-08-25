@@ -11,6 +11,17 @@ export default async function AdminPage() {
     redirect('/login');
   }
 
+  // Enforce global admin role
+  const { data: roleData } = await supabase
+    .from('user_roles')
+    .select('role')
+    .eq('user_id', user.id)
+    .single();
+
+  if (!roleData || roleData.role !== 'admin') {
+    redirect('/dashboard');
+  }
+
   // Fetch all problems
   const { data: problems } = await supabase.from('problems').select('*').order('created_at', { ascending: false });
 

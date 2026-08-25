@@ -89,7 +89,7 @@ export default async function RoomPage({
           {/* EDITOR PANEL */}
           <Panel id="main-editor-panel" minSize={30}>
             <div className="flex-1 min-h-0 flex flex-col bg-[#0d1117] h-full w-full">
-              <CollaborativeEditor roomId={id} userEmail={user.email} isHost={false} problems={problems} />
+              <CollaborativeEditor roomId={id} userEmail={user.email} isHost={room.host_id === user.id} problems={problems} />
             </div>
           </Panel>
         </Group>
