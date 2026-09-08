@@ -55,6 +55,7 @@ export default function CollaborativeEditor({
   const [isExecuting, setIsExecuting] = useState(false);
   const [stdinInput, setStdinInput] = useState<string>('');
   const [isAiOpen, setIsAiOpen] = useState(false);
+  const [currentCode, setCurrentCode] = useState('');
 
   // --- Handlers ---
 
@@ -77,8 +78,6 @@ export default function CollaborativeEditor({
 
   // Get the current problem's description for the AI panel
   const currentProblem = problems[activeProblemId];
-  const currentCode = editorRef.current?.getValue() ?? '';
-
   return (
     <div className="flex-1 h-full w-full overflow-hidden bg-black text-slate-300 flex">
       {/* Main resizable layout */}
@@ -103,6 +102,7 @@ export default function CollaborativeEditor({
               <EditorPanel
                 isExecuting={isExecuting}
                 isAiOpen={isAiOpen}
+                onCodeChange={setCurrentCode}
                 onRunCode={handleRunCode}
                 onToggleAi={() => setIsAiOpen((prev) => !prev)}
                 onEditorMount={handleEditorDidMount}

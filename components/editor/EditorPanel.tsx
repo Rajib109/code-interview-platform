@@ -13,6 +13,7 @@ import type { editor } from 'monaco-editor';
 interface EditorPanelProps {
   isExecuting: boolean;
   isAiOpen: boolean;
+  onCodeChange: (code: string) => void;
   onRunCode: () => void;
   onToggleAi: () => void;
   onEditorMount: (instance: editor.IStandaloneCodeEditor) => void;
@@ -21,6 +22,7 @@ interface EditorPanelProps {
 export default function EditorPanel({
   isExecuting,
   isAiOpen,
+  onCodeChange,
   onRunCode,
   onToggleAi,
   onEditorMount,
@@ -70,6 +72,7 @@ export default function EditorPanel({
             padding: { top: 16 },
             fontSize: 14,
           }}
+          onChange={(value) => onCodeChange(value ?? '')}
           onMount={onEditorMount}
         />
       </div>
