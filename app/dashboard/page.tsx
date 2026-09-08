@@ -80,7 +80,7 @@ export default async function DashboardPage() {
               <div className="bg-white/5 p-4 rounded-full mb-4">
                 <Terminal className="h-8 w-8 text-muted-foreground" />
               </div>
-              <p className="text-muted-foreground mb-4">You haven't conducted any interviews recently.</p>
+              <p className="text-muted-foreground mb-4">You haven&apos;t conducted any interviews recently.</p>
             </div>
           </div>
 
