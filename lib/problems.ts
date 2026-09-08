@@ -10,7 +10,7 @@ export interface Problem {
   title: string;
   description: string;
   starterCode: string; // Map from DB's starter_code
-  testCases?: any[];   // DB test_cases
+  testCases?: unknown[];   // DB test_cases
 }
 
 import { createClient } from '@/utils/supabase/server';

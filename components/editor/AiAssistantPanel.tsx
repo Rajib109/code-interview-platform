@@ -25,7 +25,7 @@ interface AiMessage {
 
 interface AiAssistantPanelProps {
   isOpen: boolean;
-  currentCode: string;
+  getCurrentCode: () => string;
   problemDescription: string;
 }
 
@@ -45,7 +45,7 @@ const HINT_MODES = [
 
 export default function AiAssistantPanel({
   isOpen,
-  currentCode,
+  getCurrentCode,
   problemDescription,
 }: AiAssistantPanelProps) {
   const [messages, setMessages] = useState<AiMessage[]>([]);
@@ -76,6 +76,7 @@ export default function AiAssistantPanel({
     setIsLoading(true);
 
     try {
+      const currentCode = getCurrentCode();
       const hint = await getAiHint(problemDescription, currentCode, requestType);
 
       const assistantMsg: AiMessage = {
