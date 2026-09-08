@@ -10,10 +10,11 @@ import tempfile
 
 import docker
 import requests
+
 # pyrefly: ignore [missing-import]
 from fastapi import HTTPException
 
-#pyrefly:ignore [missing-import]
+# pyrefly:ignore [missing-import]
 from config import (
     EXECUTION_TIMEOUT_SECONDS,
     MEMORY_LIMIT,
@@ -42,6 +43,7 @@ def is_docker_connected() -> bool:
 # Core execution helpers
 # ---------------------------------------------------------------------------
 
+
 def execute_with_tests(code: str, test_cases: list[dict]) -> dict:
     """
     Compile *code* once, then run the resulting binary against every
@@ -64,8 +66,7 @@ def execute_with_tests(code: str, test_cases: list[dict]) -> dict:
 
         # 3. Build the compile-then-run pipeline
         run_commands = [
-            f"./main < input_{i}.txt > output_{i}.txt"
-            for i in range(len(test_cases))
+            f"./main < input_{i}.txt > output_{i}.txt" for i in range(len(test_cases))
         ]
         pipeline = f"g++ -O2 main.cpp -o main && {' && '.join(run_commands)}"
 
@@ -103,7 +104,11 @@ def execute_with_tests(code: str, test_cases: list[dict]) -> dict:
 
                 if not os.path.exists(output_path):
                     results.append(
-                        {"id": tc["id"], "passed": False, "error": "No output generated"}
+                        {
+                            "id": tc["id"],
+                            "passed": False,
+                            "error": "No output generated",
+                        }
                     )
                     all_passed = False
                     continue

@@ -8,10 +8,12 @@ and mounts route modules.  All business logic lives in `services/`.
 # Load environment variables from .env before anything else
 # pyrefly: ignore [missing-import]
 from dotenv import load_dotenv
+
 load_dotenv()
 
 # pyrefly: ignore [missing-import]
 from fastapi import FastAPI
+
 # pyrefly: ignore [missing-import]
 from fastapi.middleware.cors import CORSMiddleware
 

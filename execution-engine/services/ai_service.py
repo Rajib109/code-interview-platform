@@ -9,6 +9,7 @@ import os
 
 # pyrefly: ignore [missing-import]
 from google import genai
+
 # pyrefly: ignore [missing-import]
 from google.genai import types
 
@@ -41,6 +42,7 @@ CRITICAL RULES:
 # ---------------------------------------------------------------------------
 # Public API
 # ---------------------------------------------------------------------------
+
 
 def is_configured() -> bool:
     """Return True when the GEMINI_API_KEY env-var is set."""
