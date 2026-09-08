@@ -4,8 +4,14 @@ from fastapi import APIRouter, HTTPException
 
 # pyrefly: ignore [missing-import]
 from models.execution import CodeExecutionRequest
+
 # pyrefly: ignore [missing-import]
-from services.docker_runner import execute_freeplay, execute_with_tests, is_docker_connected
+from services.docker_runner import (
+    execute_freeplay,
+    execute_with_tests,
+    is_docker_connected,
+)
+
 # pyrefly: ignore [missing-import]
 from services.db import get_problem_from_db
 
