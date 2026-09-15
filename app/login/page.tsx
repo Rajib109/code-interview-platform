@@ -1,5 +1,5 @@
 import { login, signup } from "./actions";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/input";
 import { Terminal } from "lucide-react";
 import Link from "next/link";
