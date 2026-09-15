@@ -7,7 +7,7 @@ import GripHandle from '@/components/ui/GripHandle'
 import { Group, Panel } from 'react-resizable-panels'
 import { Terminal, LogOut, ChevronRight, Code2 } from 'lucide-react'
 import Link from 'next/link'
-import { Button } from '@/components/ui/Button'
+import { Button } from '@/components/ui/button'
 import { getProblems } from '@/lib/problems'
 
 export default async function RoomPage({
