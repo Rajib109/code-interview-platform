@@ -5,12 +5,19 @@
  * and C++ starter code that gets inserted into the editor.
  */
 
+export interface TestCase {
+  id?: string;
+  input?: string;
+  expected_output?: string;
+  [key: string]: unknown;
+}
+
 export interface Problem {
   id: string;
   title: string;
   description: string;
   starterCode: string; // Map from DB's starter_code
-  testCases?: any[];   // DB test_cases
+  testCases?: TestCase[]; // DB test_cases
 }
 
 import { createClient } from '@/utils/supabase/server';

@@ -77,7 +77,6 @@ export default function CollaborativeEditor({
 
   // Get the current problem's description for the AI panel
   const currentProblem = problems[activeProblemId];
-  const currentCode = editorRef.current?.getValue() ?? '';
 
   return (
     <div className="flex-1 h-full w-full overflow-hidden bg-black text-slate-300 flex">
@@ -117,7 +116,7 @@ export default function CollaborativeEditor({
             {/* AI Assistant (slides in from right) */}
             <AiAssistantPanel
               isOpen={isAiOpen}
-              currentCode={currentCode}
+              getCurrentCode={() => editorRef.current?.getValue() ?? ''}
               problemDescription={currentProblem?.description ?? ''}
             />
           </div>

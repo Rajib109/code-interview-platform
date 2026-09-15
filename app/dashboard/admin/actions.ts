@@ -36,7 +36,7 @@ export async function saveProblem(formData: FormData) {
   if (testCasesString) {
     try {
       testCases = JSON.parse(testCasesString);
-    } catch (e) {
+    } catch {
       return { error: 'Invalid JSON for test cases' };
     }
   }

@@ -33,7 +33,14 @@ export default async function AdminPage() {
         {/* Form */}
         <div className="glass-card p-6 rounded-xl border border-white/10">
           <h2 className="text-xl font-semibold mb-6">Create / Edit Problem</h2>
-          <form action={saveProblem} className="flex flex-col gap-4">
+          <form
+            action={async (formData: FormData) => {
+              'use server';
+              // Envolver la acción del servidor para cumplir con el tipo void que espera el formulario
+              await saveProblem(formData);
+            }}
+            className="flex flex-col gap-4"
+          >
             <div>
               <label className="block text-sm font-medium mb-1">Problem ID (e.g., two-sum)</label>
               <input name="id" type="text" required className="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-sm focus:outline-none focus:border-primary" />
