@@ -22,13 +22,31 @@ export async function saveProblem(formData: FormData) {
     return { error: 'Unauthorized' };
   }
 
-  const { data: roleData } = await supabase
-    .from('user_roles')
-    .select('role')
-    .eq('user_id', user.id)
-    .single();
+  // Check admin role via RPC (bypasses RLS), with fallback
+  const { data: rpcRole, error: rpcError } = await supabase
+    .rpc('get_user_role', { lookup_user_id: user.id });
 
-  if (!roleData || roleData.role !== 'admin') {
+  let dbRole: string | null = null;
+  if (rpcError) {
+    // Fallback to direct query
+    const { data: roleData } = await supabase
+      .from('user_roles')
+      .select('role')
+      .eq('user_id', user.id)
+      .maybeSingle();
+    dbRole = roleData?.role ?? null;
+  } else {
+    dbRole = rpcRole;
+  }
+
+  const metaRole = (user.app_metadata?.role || user.user_metadata?.role) as string | undefined;
+  const isAdmin =
+    dbRole?.toLowerCase() === 'admin' ||
+    metaRole?.toLowerCase() === 'admin' ||
+    user.app_metadata?.is_admin === true ||
+    user.user_metadata?.is_admin === true;
+
+  if (!isAdmin) {
     return { error: 'Unauthorized: Admins only' };
   }
 
