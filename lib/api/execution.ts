@@ -5,7 +5,7 @@
  * don't embed raw URLs and response parsing inline.
  */
 
-const ENGINE_BASE_URL = 'http://localhost:8000';
+const ENGINE_BASE_URL = process.env.NEXT_PUBLIC_EXECUTION_ENGINE_URL || 'http://localhost:8000';
 
 // ---------------------------------------------------------------------------
 // Code Execution
