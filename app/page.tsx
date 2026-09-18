@@ -1,9 +1,16 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Terminal, Sparkles, ArrowRight, Code2 } from "lucide-react";
+import { Terminal, Sparkles, ArrowRight, LogOut, Code2 } from "lucide-react";
+import { createClient } from "@/utils/supabase/server";
+import { signout } from "@/app/login/actions";
 
-export default function LandingPage() {
+export default async function LandingPage() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   return (
     <div className="flex flex-col min-h-screen relative overflow-hidden bg-background">
       {/* Dynamic Background Gradients */}
@@ -12,24 +19,45 @@ export default function LandingPage() {
 
       {/* Navigation Header */}
       <header className="px-6 py-4 flex items-center justify-between glass sticky top-0 z-50">
-        <div className="flex items-center gap-2 font-bold text-xl tracking-tight">
+        <Link href="/" className="flex items-center gap-2 font-bold text-xl tracking-tight">
           <div className="bg-primary/20 p-1.5 rounded-lg border border-primary/30">
             <Terminal className="h-5 w-5 text-primary" />
           </div>
           <span className="text-foreground">CodeInterview</span>
-        </div>
-        <nav className="flex items-center gap-6">
-          <Link 
-            href="/login" 
-            className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-          >
-            Log in
-          </Link>
-          <Link href="/dashboard">
-            <Button size="sm" className="rounded-full px-6 hover-glow transition-all duration-300">
-              Dashboard
-            </Button>
-          </Link>
+        </Link>
+        <nav className="flex items-center gap-4">
+          {user ? (
+            <>
+              <span className="text-sm font-medium text-muted-foreground hidden sm:inline-block">
+                {user.email}
+              </span>
+              <Link href="/dashboard">
+                <Button size="sm" className="rounded-full px-6 hover-glow transition-all duration-300">
+                  Dashboard
+                </Button>
+              </Link>
+              <form action={signout}>
+                <Button type="submit" variant="ghost" size="sm" className="text-muted-foreground hover:text-destructive gap-1.5">
+                  <LogOut className="h-4 w-4" />
+                  <span className="hidden sm:inline">Sign Out</span>
+                </Button>
+              </form>
+            </>
+          ) : (
+            <>
+              <Link 
+                href="/login" 
+                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+              >
+                Log in
+              </Link>
+              <Link href="/login">
+                <Button size="sm" className="rounded-full px-6 hover-glow transition-all duration-300">
+                  Get Started
+                </Button>
+              </Link>
+            </>
+          )}
         </nav>
       </header>
 

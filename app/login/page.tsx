@@ -3,12 +3,23 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Terminal } from "lucide-react";
 import Link from "next/link";
+import { createClient } from "@/utils/supabase/server";
+import { redirect } from "next/navigation";
 
 export default async function LoginPage({
   searchParams,
 }: {
   searchParams: Promise<{ message: string }>;
 }) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (user) {
+    redirect("/dashboard");
+  }
+
   const { message } = await searchParams;
 
   return (
@@ -62,12 +73,14 @@ export default async function LoginPage({
 
             <div className="flex flex-col gap-3 mt-4">
               <Button
+                type="submit"
                 formAction={login}
                 className="w-full h-11 bg-primary hover:bg-primary/90 text-primary-foreground hover-glow"
               >
                 Sign In
               </Button>
               <Button
+                type="submit"
                 formAction={signup}
                 variant="outline"
                 className="w-full h-11 border-white/10 hover:bg-white/5"
@@ -77,7 +90,13 @@ export default async function LoginPage({
             </div>
 
             {message && (
-              <div className="mt-4 p-3 bg-red-500/10 border border-red-500/20 text-red-400 text-sm rounded-lg text-center animate-in fade-in">
+              <div
+                className={`mt-4 p-3 border text-sm rounded-lg text-center animate-in fade-in ${
+                  message.toLowerCase().includes("success") || message.toLowerCase().includes("verify")
+                    ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-400"
+                    : "bg-red-500/10 border-red-500/20 text-red-400"
+                }`}
+              >
                 {message}
               </div>
             )}

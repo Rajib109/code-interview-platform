@@ -1,7 +1,8 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/utils/supabase/server'
 import { createRoom } from './actions'
-import { Terminal, Plus, Clock, Users, Code } from 'lucide-react'
+import { signout } from '@/app/login/actions'
+import { Terminal, Plus, Clock, Users, Code, LogOut } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
@@ -32,6 +33,12 @@ export default async function DashboardPage() {
           <div className="h-8 w-8 rounded-full bg-gradient-to-tr from-primary to-purple-500 flex items-center justify-center font-bold text-white shadow-lg">
             {user.email?.charAt(0).toUpperCase()}
           </div>
+          <form action={signout}>
+            <Button type="submit" variant="ghost" size="sm" className="text-muted-foreground hover:text-destructive gap-1.5 px-3">
+              <LogOut className="h-4 w-4" />
+              <span className="hidden sm:inline">Sign Out</span>
+            </Button>
+          </form>
         </div>
       </header>
 
