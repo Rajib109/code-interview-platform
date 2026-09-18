@@ -3,7 +3,10 @@
 import { createClient } from '@/utils/supabase/server';
 import { revalidatePath } from 'next/cache';
 
-export async function saveProblem(formData: FormData) {
+/** Shared result shape returned by admin actions. */
+type ActionResult = { error: string; success?: undefined } | { success: boolean; error?: undefined };
+
+export async function saveProblem(formData: FormData): Promise<ActionResult> {
   const supabase = await createClient();
 
   const id = formData.get('id') as string;
@@ -82,7 +85,7 @@ export async function saveProblem(formData: FormData) {
  * Delete a problem by ID.
  * Performs the same admin role check as saveProblem before allowing deletion.
  */
-export async function deleteProblem(problemId: string) {
+export async function deleteProblem(problemId: string): Promise<ActionResult> {
   const supabase = await createClient();
 
   if (!problemId) {
