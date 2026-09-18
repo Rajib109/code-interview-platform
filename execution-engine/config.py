@@ -10,7 +10,8 @@ APP_TITLE = "Code Execution Engine"
 
 # --- CORS ---
 ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # Next.js frontend (dev)
+    "http://localhost:3000",
+    "https://code-interview-platform-9p53c0kdk.vercel.app"
 ]
 
 # --- Docker Sandbox Limits ---

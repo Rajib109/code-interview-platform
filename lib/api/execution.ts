@@ -45,7 +45,10 @@ export async function runCode(
 
   const response = await fetch(`${ENGINE_BASE_URL}/execute`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 
+      'Content-Type': 'application/json',
+      'ngrok-skip-browser-warning': 'true'
+    },
     body: JSON.stringify(payload),
   });
 
@@ -99,7 +102,10 @@ export async function getAiHint(
 ): Promise<HintResponse> {
   const response = await fetch(`${ENGINE_BASE_URL}/ai/hint`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 
+      'Content-Type': 'application/json',
+      'ngrok-skip-browser-warning': 'true'
+    },
     body: JSON.stringify({
       problem_description: problemDescription,
       current_code: currentCode,
